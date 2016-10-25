@@ -1,3 +1,6 @@
+sudo: required
+dist: trusty
+
 language: python
 
 python:
@@ -10,35 +13,49 @@ cache:
     - .tox
 
 env:
-  - TOX_ENV=py27-django18-pil APT='libjpeg62 libjpeg62-dev zlib1g-dev'
-  - TOX_ENV=py27-django18-imagemagick APT=imagemagick
-  - TOX_ENV=py27-django18-graphicsmagick APT=graphicsmagick
+    global:
+        - DOCKER_VERSION=1.12.2-0~trusty
+        - DOCKER_COMPOSE_VERSION=1.8.0
+  - TOX_ENV=py27-django18-pil
+  - TOX_ENV=py27-django18-imagemagick
+  - TOX_ENV=py27-django18-graphicsmagick
   - TOX_ENV=py27-django18-redis
+  - TOX_ENV=py27-django18-sentinel
   - TOX_ENV=py27-django18-wand
-  - TOX_ENV=py27-django18-pgmagick APT='libgraphicsmagick++1-dev libboost-python-dev'
+  - TOX_ENV=py27-django18-pgmagick
   - TOX_ENV=py27-django18-dbm
-  - TOX_ENV=py34-django18-pil APT='libjpeg62 libjpeg62-dev zlib1g-dev'
-  - TOX_ENV=py34-django18-imagemagick APT=imagemagick
-  - TOX_ENV=py34-django18-graphicsmagick APT=graphicsmagick
+  - TOX_ENV=py34-django18-pil
+  - TOX_ENV=py34-django18-imagemagick
+  - TOX_ENV=py34-django18-graphicsmagick
   - TOX_ENV=py34-django18-redis
+  - TOX_ENV=py34-django18-sentinel
   - TOX_ENV=py34-django18-wand
   - TOX_ENV=py34-django18-dbm
-  - TOX_ENV=py34-django19-pil APT='libjpeg62 libjpeg62-dev zlib1g-dev'
-  - TOX_ENV=py34-django19-imagemagick APT=imagemagick
-  - TOX_ENV=py34-django19-graphicsmagick APT=graphicsmagick
+  - TOX_ENV=py34-django19-pil
+  - TOX_ENV=py34-django19-imagemagick
+  - TOX_ENV=py34-django19-graphicsmagick
   - TOX_ENV=py34-django19-redis
+  - TOX_ENV=py34-django19-sentinel
   - TOX_ENV=py34-django19-wand
   - TOX_ENV=py34-django19-dbm
-  - TOX_ENV=py34-django110-pil APT='libjpeg62 libjpeg62-dev zlib1g-dev'
-  - TOX_ENV=py34-django110-imagemagick APT=imagemagick
-  - TOX_ENV=py34-django110-graphicsmagick APT=graphicsmagick
+  - TOX_ENV=py34-django110-pil
+  - TOX_ENV=py34-django110-imagemagick
+  - TOX_ENV=py34-django110-graphicsmagick
   - TOX_ENV=py34-django110-redis
+  - TOX_ENV=py34-django110-sentinel
   - TOX_ENV=py34-django110-wand
   - TOX_ENV=py34-django110-dbm
 
 before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq $APT
+  - apt-cache madison docker-engine
+  - sudo apt-get -o Dpkg::Options::="--force-confnew" install -y docker-engine=${DOCKER_VERSION}
+  - sudo rm -f /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+before_script:
+  - docker-compose up --build -d
 
 after_failure:
   - cat /home/travis/.pip/pip.log
@@ -53,11 +70,19 @@ install:
 
 script:
   - env | sort
-  - tox -e $TOX_ENV
+  - ./run_docker_single_test.sh
   - flake8 --show-source sorl/
+
+after_script:
+  - docker-compose down
 
 services:
   - redis-server
+  - docker
+
+branches:
+  only:
+  - sentinel_support
 
 notifications:
   irc:
