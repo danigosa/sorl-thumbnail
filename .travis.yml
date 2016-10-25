@@ -10,36 +10,36 @@ env:
   global:
       - DOCKER_VERSION=1.12.2-0~trusty
       - DOCKER_COMPOSE_VERSION=1.8.0
-env:
-  - TOX_ENV=py27-django18-pil
-  - TOX_ENV=py27-django18-imagemagick
-  - TOX_ENV=py27-django18-graphicsmagick
-  - TOX_ENV=py27-django18-redis
-  - TOX_ENV=py27-django18-sentinel
-  - TOX_ENV=py27-django18-wand
-  - TOX_ENV=py27-django18-pgmagick
-  - TOX_ENV=py27-django18-dbm
-  - TOX_ENV=py34-django18-pil
-  - TOX_ENV=py34-django18-imagemagick
-  - TOX_ENV=py34-django18-graphicsmagick
-  - TOX_ENV=py34-django18-redis
-  - TOX_ENV=py34-django18-sentinel
-  - TOX_ENV=py34-django18-wand
-  - TOX_ENV=py34-django18-dbm
-  - TOX_ENV=py34-django19-pil
-  - TOX_ENV=py34-django19-imagemagick
-  - TOX_ENV=py34-django19-graphicsmagick
-  - TOX_ENV=py34-django19-redis
-  - TOX_ENV=py34-django19-sentinel
-  - TOX_ENV=py34-django19-wand
-  - TOX_ENV=py34-django19-dbm
-  - TOX_ENV=py34-django110-pil
-  - TOX_ENV=py34-django110-imagemagick
-  - TOX_ENV=py34-django110-graphicsmagick
-  - TOX_ENV=py34-django110-redis
-  - TOX_ENV=py34-django110-sentinel
-  - TOX_ENV=py34-django110-wand
-  - TOX_ENV=py34-django110-dbm
+  matrix:
+    - TOX_ENV=py27-django18-pil
+    - TOX_ENV=py27-django18-imagemagick
+    - TOX_ENV=py27-django18-graphicsmagick
+    - TOX_ENV=py27-django18-redis
+    - TOX_ENV=py27-django18-sentinel
+    - TOX_ENV=py27-django18-wand
+    - TOX_ENV=py27-django18-pgmagick
+    - TOX_ENV=py27-django18-dbm
+    - TOX_ENV=py34-django18-pil
+    - TOX_ENV=py34-django18-imagemagick
+    - TOX_ENV=py34-django18-graphicsmagick
+    - TOX_ENV=py34-django18-redis
+    - TOX_ENV=py34-django18-sentinel
+    - TOX_ENV=py34-django18-wand
+    - TOX_ENV=py34-django18-dbm
+    - TOX_ENV=py34-django19-pil
+    - TOX_ENV=py34-django19-imagemagick
+    - TOX_ENV=py34-django19-graphicsmagick
+    - TOX_ENV=py34-django19-redis
+    - TOX_ENV=py34-django19-sentinel
+    - TOX_ENV=py34-django19-wand
+    - TOX_ENV=py34-django19-dbm
+    - TOX_ENV=py34-django110-pil
+    - TOX_ENV=py34-django110-imagemagick
+    - TOX_ENV=py34-django110-graphicsmagick
+    - TOX_ENV=py34-django110-redis
+    - TOX_ENV=py34-django110-sentinel
+    - TOX_ENV=py34-django110-wand
+    - TOX_ENV=py34-django110-dbm
 
 before_install:
   - apt-cache madison docker-engine
