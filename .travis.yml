@@ -1,17 +1,6 @@
 sudo: required
 dist: trusty
 
-language: python
-
-python:
-  - "3.4"
-
-cache:
-  pip:
-  apt:
-  directories:
-    - .tox
-
 env:
     global:
         - DOCKER_VERSION=1.12.2-0~trusty
@@ -58,15 +47,15 @@ before_script:
   - docker-compose up --build -d
 
 after_failure:
-  - cat /home/travis/.pip/pip.log
+  - ./bash_cat_pip_log.sh
 
 # after_success:
 #  - coveralls
 
-install:
-  - pip install pip wheel
-#  - pip install -q coveralls flake8 tox
-  - pip install -q flake8 tox
+#install:
+#  - pip install pip wheel
+##  - pip install -q coveralls flake8 tox
+#  - pip install -q flake8 tox
 
 script:
   - env | sort
@@ -77,12 +66,7 @@ after_script:
   - docker-compose down
 
 services:
-  - redis-server
   - docker
-
-branches:
-  only:
-  - sentinel_support
 
 notifications:
   irc:
