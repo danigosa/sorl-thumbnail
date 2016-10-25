@@ -2,9 +2,10 @@ sudo: required
 dist: trusty
 
 env:
-    global:
-        - DOCKER_VERSION=1.12.2-0~trusty
-        - DOCKER_COMPOSE_VERSION=1.8.0
+  global:
+      - DOCKER_VERSION=1.12.2-0~trusty
+      - DOCKER_COMPOSE_VERSION=1.8.0
+env:
   - TOX_ENV=py27-django18-pil
   - TOX_ENV=py27-django18-imagemagick
   - TOX_ENV=py27-django18-graphicsmagick
