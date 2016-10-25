@@ -64,7 +64,6 @@ after_failure:
 #  - pip install -q flake8 tox
 
 script:
-  - env | sort
   - ./run_docker_single_test.sh
 
 after_script:
