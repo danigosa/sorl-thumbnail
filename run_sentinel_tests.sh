@@ -8,4 +8,4 @@ fi
 cd /sorl-thumbnail
 env | sort
 tox -e $TOX_ENV
-flake8 --show-source sorl/
+#flake8 --show-source sorl/
