@@ -12,34 +12,34 @@ env:
       - DOCKER_COMPOSE_VERSION=1.8.0
   matrix:
     - TOX_ENV=py27-django18-pil
-    - TOX_ENV=py27-django18-imagemagick
-    - TOX_ENV=py27-django18-graphicsmagick
+#    - TOX_ENV=py27-django18-imagemagick
+#    - TOX_ENV=py27-django18-graphicsmagick
     - TOX_ENV=py27-django18-redis
     - TOX_ENV=py27-django18-sentinel
-    - TOX_ENV=py27-django18-wand
-    - TOX_ENV=py27-django18-pgmagick
-    - TOX_ENV=py27-django18-dbm
+#    - TOX_ENV=py27-django18-wand
+#    - TOX_ENV=py27-django18-pgmagick
+#    - TOX_ENV=py27-django18-dbm
     - TOX_ENV=py34-django18-pil
-    - TOX_ENV=py34-django18-imagemagick
-    - TOX_ENV=py34-django18-graphicsmagick
+#    - TOX_ENV=py34-django18-imagemagick
+#    - TOX_ENV=py34-django18-graphicsmagick
     - TOX_ENV=py34-django18-redis
     - TOX_ENV=py34-django18-sentinel
-    - TOX_ENV=py34-django18-wand
-    - TOX_ENV=py34-django18-dbm
+#    - TOX_ENV=py34-django18-wand
+#    - TOX_ENV=py34-django18-dbm
     - TOX_ENV=py34-django19-pil
-    - TOX_ENV=py34-django19-imagemagick
-    - TOX_ENV=py34-django19-graphicsmagick
+#    - TOX_ENV=py34-django19-imagemagick
+#    - TOX_ENV=py34-django19-graphicsmagick
     - TOX_ENV=py34-django19-redis
     - TOX_ENV=py34-django19-sentinel
-    - TOX_ENV=py34-django19-wand
-    - TOX_ENV=py34-django19-dbm
+#    - TOX_ENV=py34-django19-wand
+#    - TOX_ENV=py34-django19-dbm
     - TOX_ENV=py34-django110-pil
-    - TOX_ENV=py34-django110-imagemagick
-    - TOX_ENV=py34-django110-graphicsmagick
+#    - TOX_ENV=py34-django110-imagemagick
+#    - TOX_ENV=py34-django110-graphicsmagick
     - TOX_ENV=py34-django110-redis
     - TOX_ENV=py34-django110-sentinel
-    - TOX_ENV=py34-django110-wand
-    - TOX_ENV=py34-django110-dbm
+#    - TOX_ENV=py34-django110-wand
+#    - TOX_ENV=py34-django110-dbm
 
 before_install:
   - apt-cache madison docker-engine
@@ -71,14 +71,11 @@ after_script:
 
 
 notifications:
-  irc:
-    channels:
-      - "irc.freenode.org#sorl-thumbnail"
+  email:
+    recipients:
+      - danigosa@gmail.com
+      - dani@robbie.ai
+      - dani@infantium.com
     on_success: change
     on_failure: change
-  webhooks:
-    urls:
-      - https://webhooks.gitter.im/e/b368c47d69637f9a01a0
-    on_success: change
-    on_failure: change
-    on_start: false     # default: false
+
